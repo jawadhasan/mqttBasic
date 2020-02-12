@@ -101,40 +101,5 @@ namespace ConsolePublisher
                 Thread.Sleep(2000);
             }
         }
-
-
-
-
-
-
-
-
-        //Event-Handling
-        //private static void Message_Recieved(object sender, MqttApplicationMessageReceivedEventArgs e)
-        //{
-        //    Console.WriteLine($"ApplicationMessageReceived at {DateTime.UtcNow}");
-        //    //Console.WriteLine(Encoding.UTF8.GetString(e.ApplicationMessage.Payload)); //works
-        //    Console.WriteLine(Base64Decode(e.ApplicationMessage.Payload.ToString())); //also works
-        //}
-        //private static void Client_Connected(object sender, EventArgs e)
-        //{
-        //    Console.WriteLine("### CONNECTED WITH SERVER ###");
-        //    Console.WriteLine("Press any key to simulate message sending!");
-        //    //await client.SubscribeAsync(new TopicFilterBuilder().WithTopic("test").Build());
-        //}
-        //private static async void Client_ConnectionClosed(object sender, EventArgs e)
-        //{
-        //    Console.WriteLine($"Client_ConnectionClosed:  {e}");
-        //    await Task.Delay(TimeSpan.FromSeconds(5));
-
-        //    try
-        //    {
-        //        await _client.ConnectAsync(_options);
-        //    }
-        //    catch
-        //    {
-        //        Console.WriteLine("### RECONNECTING FAILED ###");
-        //    }
-        //}
     }
 }
