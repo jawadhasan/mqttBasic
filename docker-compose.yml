@@ -1,0 +1,49 @@
+version: '3.3'
+
+services:
+
+
+  node-red:
+    image: nodered/node-red
+    volumes:
+      - "node_red_user_data_2:/data"
+    environment:
+      - MY_EVN=sasa    
+    ports:
+      - "1880:1880" 
+    networks:
+     - store-net   
+      
+  dotnetbroker:
+    image: dotnetbroker
+    ports:
+      - "1884:1884"     
+    environment:
+      - MY_EVN=dotnetbroker
+    networks:
+     - store-net        
+
+  dotnetpublisher:
+    image: dotnetpublisher
+    depends_on:
+      - dotnetbroker    
+    environment:
+      - MY_EVN=dotnetpublisher
+    networks:
+     - store-net      
+
+  dotnetsubscriber:
+    image: dotnetsubscriber
+    depends_on:
+      - dotnetbroker     
+    environment:
+      - MY_EVN=dotnetsubscriber
+    networks:
+     - store-net      
+
+networks:
+  store-net:     
+
+volumes:
+  node_red_user_data_2:
+  another_volume:  

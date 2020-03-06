@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using MQTTnet;
 using MQTTnet.Client;
@@ -26,7 +27,7 @@ namespace ConsoleSubscriber
                 //configure options
                 _options = new MqttClientOptionsBuilder()
                     .WithClientId("SubscriberId")
-                    .WithTcpServer("localhost", 1884)
+                    .WithTcpServer("dotnetbroker", 1884)
                     .WithCredentials("bud", "%spencer%")
                     .WithCleanSession()
                     .Build();
@@ -60,6 +61,11 @@ namespace ConsoleSubscriber
 
                 Console.WriteLine("Press key to exit");
                 Console.ReadLine();
+
+                //To keep the app running in container
+                //https://stackoverflow.com/questions/38549006/docker-container-exits-immediately-even-with-console-readline-in-a-net-core-c
+                Task.Run(() => Thread.Sleep(Timeout.Infinite)).Wait();
+                _client.DisconnectAsync().Wait();
             }
             catch (Exception e)
             {

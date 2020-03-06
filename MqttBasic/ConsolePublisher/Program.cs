@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Client.Options;
@@ -24,10 +25,12 @@ namespace ConsolePublisher
                 //configure options
                 _options = new MqttClientOptionsBuilder()
                     .WithClientId("PublisherId")
-                    .WithTcpServer("localhost", 1884)
+                    .WithTcpServer("dotnetbroker", 1884)
                     .WithCredentials("bud", "%spencer%")
                     .WithCleanSession()
                     .Build();
+
+
 
 
                 //handlers
@@ -67,8 +70,14 @@ namespace ConsolePublisher
 
 
                 Console.WriteLine("Simulation ended! press any key to exit.");
-                _client.DisconnectAsync().Wait();
                 Console.ReadLine();
+
+                //To keep the app running in container
+                //https://stackoverflow.com/questions/38549006/docker-container-exits-immediately-even-with-console-readline-in-a-net-core-c
+                Task.Run(() => Thread.Sleep(Timeout.Infinite)).Wait();
+                _client.DisconnectAsync().Wait();
+
+
             }
             catch (Exception e)
             {
