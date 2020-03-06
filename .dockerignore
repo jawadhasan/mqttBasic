@@ -14,9 +14,9 @@ obj
 bin
 **/.vs
 
-**/dist-broker
-**/dist-publisher
-**/dist-subscriber
+docker/broker/dist-broker/
+docker/publisher/dist-publisher/
+docker/subscriber/dist-subscriber/
 
 ## Cut-down version of:
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
