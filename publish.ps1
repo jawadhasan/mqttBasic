@@ -64,15 +64,3 @@ Write-Host "Publishing SubscriberApp Publish-Path:" $SubscriberAppPublishPath -F
 dotnet publish $SubscriberAppSourcePath -c debug -r linux-x64 --self-contained true -o $SubscriberAppPublishPath
 
 Write-Host ===================================================================================================== -ForegroundColor Red
- 
-
- 
- 
- 
- 
- 
- 
- # $BrokerAppPublishPath = "../../docker/broker/dist-broker"
-#dotnet publish $BrokerAppSourcePath -c debug -r linux-x64 --self-contained true -o $BrokerAppPublishPath
-#dotnet publish .\MqttBasic\ConsolePublisher\ConsolePublisher.csproj -c debug -r linux-x64 --self-contained true
-#dotnet publish .\MqttBasic\ConsoleSubscriber\ConsoleSubscriber.csproj -c debug -r linux-x64 --self-contained true
