@@ -22,11 +22,11 @@ namespace ConsoleBroker
                 })
                 .WithApplicationMessageInterceptor(context =>
                 {
-                    Console.WriteLine("WithApplicationMessageInterceptor block merging data");
-                    var newData = Encoding.UTF8.GetBytes(DateTime.Now.ToString("O"));
-                    var oldData = context.ApplicationMessage.Payload;
-                    var mergedData = newData.Concat(oldData).ToArray();
-                    context.ApplicationMessage.Payload = mergedData;
+                    //Console.WriteLine("WithApplicationMessageInterceptor block merging data");
+                    //var newData = Encoding.UTF8.GetBytes(DateTime.Now.ToString("O"));
+                    //var oldData = context.ApplicationMessage.Payload;
+                    //var mergedData = newData.Concat(oldData).ToArray();
+                    //context.ApplicationMessage.Payload = mergedData;
                 })
                 .WithConnectionBacklog(100)
                 .WithDefaultEndpointPort(1884);

@@ -1,0 +1,60 @@
+
+  function publishApp{ 
+  Param($sourcePath, $targetPath)
+
+write-host $sourcePath $targetPath
+
+  dotnet publish $sourcePath -c debug -r linux-x64 --self-contained true -o $targetPath #work on it
+
+}
+
+ <# 
+
+	This Script, Targets the .NET Core Console Applications in this solution folder.
+	It will Build the application, Delete the old Publish folder (if any), Publish new output into specific dist folder (Inside docker directory)
+	However, this script can be optimized as it can leverage functions for common tasks
+ #>
+ Write-Host "Working-Dir" ${pwd} -ForegroundColor Yellow 
+ 
+ Write-Host ***********************BrokerApp*********************************************** -ForegroundColor Red
+ 
+ $BrokerAppSourcePath = ".\MqttBasic\ConsoleBroker\ConsoleBroker.csproj"
+ $BrokerAppPublishPath =  Join-Path -Path ${pwd} -ChildPath "docker/broker/dist-broker"
+ 
+ #Delete BrokerApp publish folder
+ Write-Host "Deleting BrokerApp Publish-Path:" $BrokerAppPublishPath -ForegroundColor Green
+ Remove-Item -Recurse -Force $BrokerAppPublishPath -ErrorAction Ignore
+
+ #Publish BrokerApp
+ Write-Host "Publishing BrokerApp Publish-Path:" $BrokerAppPublishPath -ForegroundColor Green 
+ dotnet publish $BrokerAppSourcePath -c debug -r linux-x64 --self-contained true -o $BrokerAppPublishPath
+ 
+Write-Host ===================================================================================================== -ForegroundColor Red
+
+
+
+Write-Host ***********************VirtualPrinter*********************************************** -ForegroundColor Red
+
+$PrinterAppSourcePath = ".\MqttBasic\VirtualPrinter\VirtualPrinter.csproj"
+$PrinterAppPublishPath =  Join-Path -Path ${pwd} -ChildPath "docker/virtualprinter/dist-virtualprinter"
+
+#Delete VirtualPrinter publish folder
+Write-Host "Deleting VirtualPrinterApp Publish-Path:" $PrinterAppPublishPath -ForegroundColor Green
+Remove-Item -Recurse -Force $PrinterAppPublishPath -ErrorAction Ignore
+
+#Publish PublisherApp
+Write-Host "Publishing PublisherApp Publish-Path:" $PrinterAppPublishPath -ForegroundColor Green
+dotnet publish $PrinterAppSourcePath -c debug -r linux-x64 --self-contained true -o $PrinterAppPublishPath
+
+Write-Host ===================================================================================================== -ForegroundColor Red
+
+
+
+ 
+ 
+ 
+ 
+ # $BrokerAppPublishPath = "../../docker/broker/dist-broker"
+#dotnet publish $BrokerAppSourcePath -c debug -r linux-x64 --self-contained true -o $BrokerAppPublishPath
+#dotnet publish .\MqttBasic\ConsolePublisher\ConsolePublisher.csproj -c debug -r linux-x64 --self-contained true
+#dotnet publish .\MqttBasic\ConsoleSubscriber\ConsoleSubscriber.csproj -c debug -r linux-x64 --self-contained true

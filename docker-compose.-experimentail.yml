@@ -1,0 +1,55 @@
+version: '3.3'
+
+services:
+
+
+  node-red:
+    image: nodered/node-red
+    container_name: mynodered
+    volumes:
+      - "node_red_user_data_2:/data"
+    environment:
+      - MY_EVN=sasa    
+    ports:
+      - "1880:1880" 
+    networks:
+     - store-net   
+      
+  dotnetbroker:
+    build:
+      context: .\docker\broker
+      dockerfile: Dockerfile
+    image: dotnetbroker
+    container_name: dotnetbroker
+    ports:
+        - "1884:1884"     
+    environment:
+        - MY_EVN=dotnetbroker
+    networks:
+        - store-net        
+
+  virtualprinter:
+    build:
+      context: .\docker\virtualprinter
+      dockerfile: Dockerfile
+    image: virtualprinter
+    container_name: virtualprinter1
+    depends_on:
+        - dotnetbroker     
+    environment:
+        - MY_EVN=virtualprinter1
+        - MY_ID=virtualprinter1
+        - MY_LISTEN_TOPIC=devices\virtualprinter1\listen
+        - MY_PUBLISH_TOPIC=devices\virtualprinter1\publish       
+    networks:
+        - store-net 
+   
+
+
+networks:
+  store-net:
+    driver: bridge
+
+volumes:
+  node_red_user_data_2:
+  another_volume:  
