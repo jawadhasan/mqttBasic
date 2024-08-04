@@ -1,8 +1,17 @@
 # MQTT Demo
 MQTT POC
 
+## Article
 
-- Run Powershell Script from the directory >> .\publish.ps1 (This will copy the publish output under "Docker" subdicretory for broker, publisher and subscriber.
-- Run Powershell Script >> .\dockerImageBuild.ps1  (this will build docker images)
+https://hexquote.com/mqtt-message-queue-telemetry-protocol/    
+
+## Setup
+
+- Run Powershell Script from the directory (This will copy the publish output under "Docker" subdicretory for broker, publisher and subscriber.    
+
+`.\publish.ps1`     
 
 
+- Run Powershell Script (this will build docker images)    
+
+`.\dockerImageBuild.ps1`
